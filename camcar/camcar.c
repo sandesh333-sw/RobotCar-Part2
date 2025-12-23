@@ -190,20 +190,17 @@ void camcar(int argc, char *argv[], struct thread_dat *ptdat)
 void *worker(void *p_thread_dat)
 {
   struct thread_dat *ptdat = (struct thread_dat *) p_thread_dat;
-  const char blobColor[3] = { 255, 0, 0 };  // color to be detected as blob
-  TBlobSearch blob;	// blob object from camera
+  const char blobColor[3] = { 255, 0, 0 };
+  TBlobSearch blob;
+
   while (ptdat->bExit == 0) {
-    blob = cameraSearchBlob( blobColor ); // search for sign with RED colored blob
-    // TODO: fill in code: copy blob into shared data (mutex protected)
+    blob = cameraSearchBlob(blobColor);
 
     pthread_mutex_lock(&count_mutex);
     ptdat->blob = blob;
-    ptdat->blobnr++;
+    ptdat->blobnr++;      //  increment only once
     pthread_mutex_unlock(&count_mutex);
-
-
-    ptdat->blobnr++;
-  } // while
+  }
   return NULL;
 }
 
