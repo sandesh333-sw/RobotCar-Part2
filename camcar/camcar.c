@@ -154,14 +154,14 @@ void camcar(int argc, char *argv[], struct thread_dat *ptdat)
                         clrtoeol(); // curses library
                         // TODO: move car forward to come closer
 
-                        // initio_DriveForward(30);
+                        initio_DriveForward(30);
                         break;
                     case tooclose:
                         mvprintw(3, 1,"State RB (drive backwards), dist=%d", distance);
                         clrtoeol(); // curses library
                         // TODO: move car backwards to get more distance
 
-
+                        initio_DriveReverse(25);
                         break;
                     case distok:
                         mvprintw(3, 1,"State KD (keep distance), dist=%d", distance);
