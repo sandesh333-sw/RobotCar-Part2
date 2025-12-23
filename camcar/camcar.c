@@ -110,6 +110,9 @@ void camcar(int argc, char *argv[], struct thread_dat *ptdat)
                 clrtoeol(); // curses library
                 if (blobnr < ptdat->blobnr) {
                     // TODO: potential actions: turn car or camera platform a few steps around and see if a blob is to be found
+                    initio_SpinLeft(25);
+                    delay(120);
+                    initio_Stop();
                     blobnr = ptdat->blobnr;
                 }
             } else {
