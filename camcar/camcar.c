@@ -125,6 +125,13 @@ void camcar(int argc, char *argv[], struct thread_dat *ptdat)
                     if (blobnr < ptdat->blobnr) {
                        // TODO: slightly turn car to align with blob (find a useful turn duration)
                        //       if blob.halign is negative, then turn right, otherwise left
+                       if (blob.halign < 0.0f){
+                        initio_SpinLeft(25);
+                       } else {
+                        initio_SpinRight(25);
+                       }
+                       delay(120);
+                       initio_Stop();
                        blobnr = ptdat->blobnr;
                     }
                 } else {
