@@ -96,6 +96,9 @@ void camcar(int argc, char *argv[], struct thread_dat *ptdat)
             refresh(); // curses lib: update display
 
             // TODO: thread communication: copy blob from camera thread (mutex protected)
+            pthread_mutex_lock(&count_mutex);
+            blob = ptdat->blob;
+            pthread_mutex_unlock(&count_mutex);
 
             // writeImageWithBlobAsJPEG() seems to have a bug, do not use right now:
             // writeImageWithBlobAsJPEG(blob, "test_blob.jpg", 70);  // this function is for testing (deactivate if not needed)
