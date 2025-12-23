@@ -242,6 +242,9 @@ int main (int argc, char *argv[])
   // TODO: wait for thread to finish via pthread_join():
   //       thread handle ... cam_thread
   //       pointer return value ... NULL
+  assert(pthread_join(cam_thread, NULL) == 0);
+  pthread_attr_destroy(&pt_attr);
+  pthread_mutex_destroy(&count_mutex);
 
   // TODO: distroy thread attribute pt_attr via pthread_attr_destroy()
   //       thread attributes: &pt_attr
