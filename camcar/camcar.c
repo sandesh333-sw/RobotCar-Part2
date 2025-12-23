@@ -67,6 +67,7 @@ pthread_mutex_t count_mutex; // mutex to protect thread communication
 //======================================================================
 void camcar(int argc, char *argv[], struct thread_dat *ptdat) 
 {
+    unsigned int lastBlobSeenMs = 0;
     int ch = 0;
     int blobnr = 0;	// record blob nr of last movement
     TBlobSearch blob;	// blob object from camera thread
@@ -132,7 +133,13 @@ void camcar(int argc, char *argv[], struct thread_dat *ptdat)
                        }
                        delay(120);
                        initio_Stop();
+
+                       lastBlobSeenMs = millis();
                        blobnr = ptdat->blobnr;
+                    } else {
+                        if(millis() - lastBlobSeenMs > 400){
+                            initio_Stop();
+                        }
                     }
                 } else {
                     distance = initio_UsGetDistance ();
@@ -146,11 +153,15 @@ void camcar(int argc, char *argv[], struct thread_dat *ptdat)
                         mvprintw(3, 1,"State FB (drive forward), dist=%d", distance);
                         clrtoeol(); // curses library
                         // TODO: move car forward to come closer
+
+                        // initio_DriveForward(30);
                         break;
                     case tooclose:
                         mvprintw(3, 1,"State RB (drive backwards), dist=%d", distance);
                         clrtoeol(); // curses library
                         // TODO: move car backwards to get more distance
+
+
                         break;
                     case distok:
                         mvprintw(3, 1,"State KD (keep distance), dist=%d", distance);
