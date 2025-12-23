@@ -201,7 +201,7 @@ int main (int argc, char *argv[])
   pthread_attr_init(&pt_attr);  // pthread: create and init thread attribute
   // TODO: create thread via pthread_create()
 
-  pthread_create(&cam_thread, &pt_attr, worker, &tdat);
+  assert(pthread_create(&cam_thread, &pt_attr, worker, &tdat) == 0);
   // thread handle ... &cam_thread
   // thread attributes ... &pt_attr
   // thread routine ... worker
