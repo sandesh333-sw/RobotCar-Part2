@@ -172,6 +172,11 @@ void *worker(void *p_thread_dat)
     blob = cameraSearchBlob( blobColor ); // search for sign with RED colored blob
     // TODO: fill in code: copy blob into shared data (mutex protected)
 
+    pthread_mutex_lock(&count_mutex);
+    ptdat->blob = blob;
+    ptdat->blobnr++;
+    pthread_mutex_unlock(&count_mutex);
+
 
     ptdat->blobnr++;
   } // while
