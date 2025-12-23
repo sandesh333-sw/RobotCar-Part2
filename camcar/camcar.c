@@ -191,6 +191,7 @@ int main (int argc, char *argv[])
   keypad (mainwin, TRUE);       // curses: enable detection of cursor and other keys
 
   initio_Init (); // initio: init the library
+  assert(pthread_mutex_init(&count_mutex, NULL) == 0); //initializing mutex
 
   pthread_t cam_thread;         // pthread: thread handle
   pthread_attr_t pt_attr;       // pthread: thread attributes
@@ -199,6 +200,8 @@ int main (int argc, char *argv[])
   tdat.bExit = 0;
   pthread_attr_init(&pt_attr);  // pthread: create and init thread attribute
   // TODO: create thread via pthread_create()
+
+  pthread_create(&cam_thread, &pt_attr, worker, &tdat);
   // thread handle ... &cam_thread
   // thread attributes ... &pt_attr
   // thread routine ... worker
